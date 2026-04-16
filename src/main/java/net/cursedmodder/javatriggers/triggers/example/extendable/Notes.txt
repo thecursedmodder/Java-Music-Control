@@ -1,0 +1,1 @@
+You can extend the triggers that are in this folder. While you can use any of the triggers in the example folder, it's recommended to only extend the ones in this folder.

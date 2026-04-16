@@ -1,0 +1,20 @@
+{
+  "mappings": {
+    "net/cursedmodder/javatriggers/mixin/MobMixin": {
+      "setTarget": "Lnet/minecraft/world/entity/Mob;m_6710_(Lnet/minecraft/world/entity/LivingEntity;)V"
+    },
+    "net/cursedmodder/javatriggers/mixin/AudioSoundSourceMixin": {
+      "tick": "Lnet/minecraft/client/sounds/MusicManager;m_120183_()V"
+    }
+  },
+  "data": {
+    "searge": {
+      "net/cursedmodder/javatriggers/mixin/MobMixin": {
+        "setTarget": "Lnet/minecraft/world/entity/Mob;m_6710_(Lnet/minecraft/world/entity/LivingEntity;)V"
+      },
+      "net/cursedmodder/javatriggers/mixin/AudioSoundSourceMixin": {
+        "tick": "Lnet/minecraft/client/sounds/MusicManager;m_120183_()V"
+      }
+    }
+  }
+}

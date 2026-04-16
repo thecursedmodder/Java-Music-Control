@@ -1,0 +1,7 @@
+
+[General]
+	#Tps (ticks per second) for trigger switching
+	#Its probably a good idea to turn this down for more relaxed mod-packs
+	#Range: 1 ~ 20
+	tps = 20
+
