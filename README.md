@@ -35,12 +35,19 @@ and look for Curse Maven Snippet. Make sure the version matches the one you're c
 Creating Triggers:
 
 There are 3 constructors you can choose from. I recommend the one with priority only. It makes it easier to keep track of which triggers should take priority over others.
-Then you need to override the canPlay method and make sure you use super.canPlay in your return statement. If no songs can be played, the trigger can't play.
+Then you need to override the canPlay method and make sure you use super.canPlay in your return statement. If no songs can be played, the trigger can't play. These are the [context booleans](https://github.com/thecursedmodder/Java-Music-Triggers/blob/main/src/main/java/net/cursedmodder/javatriggers/util/ClientContext.java)
 
 <img width="906" height="439" alt="image" src="https://github.com/user-attachments/assets/165cb1e9-5102-4c87-977d-47cf4db43112" />
 
 Now you can register them in your mod Constructor class.
 <img width="956" height="381" alt="image" src="https://github.com/user-attachments/assets/bbf09c00-12e8-4d0c-8b30-e2733df023c7" />
+
+
+Then we also have layered songs, which is probably the biggest feature in this mod.
+<img width="1301" height="224" alt="image" src="https://github.com/user-attachments/assets/b36e92f0-3c05-46a8-aab3-36d933ec5665" />
+
+For more details, go to the [wiki](https://github.com/thecursedmodder/Java-Music-Triggers/wiki)
+
 
 
 
