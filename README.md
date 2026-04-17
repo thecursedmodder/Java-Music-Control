@@ -1,7 +1,7 @@
 Java Music Triggers (JMT) is an open-source Minecraft mod that makes it easy to create advanced, dynamic music.
 You will need to create your own mod to use this one. However, if you are new to modding, this is a great place to start. 
-As for intermediate to advanced modders, this will likely be the easiest library you will use.
-The documentation on this library mod will be immense, with the soon-to-come video tutorials breaking down everything you will need to create your own music mod for JMT.
+As for experienced modders, this will likely be the easiest library you will use.
+The documentation for this library mod will be immense, with the soon-to-come video tutorials breaking down everything you will need to create your own music mod for JMT.
 
 Features: 
 JMT uses booleans (True or False) for determining if a trigger can play. Each trigger also has a priority and other parameters.
@@ -21,5 +21,22 @@ Must Finish: Songs each have a must finish parameter, so even if a trigger has a
 
 Pause Volume: You can have the volume change depending on whether it is paused.
 
+Song Start Time: Each song can have different start times, which can also be adjusted dynamically, like most of the values.
 
-This is a WIP. I am new to managing repositories, so I must do my research first.
+File Support: Currently, it supports MP3 and WAV at 44.1khz. I recommend downloading Audacity for converting to the correct format. 
+
+
+Getting started, Experienced Users:
+
+You're going to want to use [cursemaven](https://www.cursemaven.com). Follow the instructions for adding the repository.
+Navigate to Curseforge for [JMT](https://www.curseforge.com/minecraft/mc-mods/java-music-triggers/files/all?page=1&pageSize=20&showAlphaFiles=show). Select the latest version of JMT 
+and look for Curse Maven Snippet. Make sure the version matches the one you're creating for! Then, copy and paste it into your build.gradle file in the dependency category.
+
+Creating Triggers:
+
+There are 3 constructors you can choose from. I recommend the one with priority only. It makes it easier to keep track of which triggers should take priority over others.
+Then you need to override the canPlay method and make sure you use super.canPlay in your return statement. If no songs can be played, the trigger can't play.
+
+<img width="906" height="439" alt="image" src="https://github.com/user-attachments/assets/165cb1e9-5102-4c87-977d-47cf4db43112" />
+
+
