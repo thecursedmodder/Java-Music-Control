@@ -39,4 +39,8 @@ Then you need to override the canPlay method and make sure you use super.canPlay
 
 <img width="906" height="439" alt="image" src="https://github.com/user-attachments/assets/165cb1e9-5102-4c87-977d-47cf4db43112" />
 
+Now you can register them in your mod Constructor class.
+<img width="956" height="381" alt="image" src="https://github.com/user-attachments/assets/bbf09c00-12e8-4d0c-8b30-e2733df023c7" />
+
+
 
