@@ -9,3 +9,13 @@
 
 1.0.3
 -integrated the canSongPlay boolean into the getSong function for advanced users.
+--Context Updates--
+-added speedIsAtOrBeyond check
+-added worldHeight check
+-added recentlyDamage check
+-added isFalling check
+-added isUnderWater check
+-added onGround check
+-added isClimbing check
+-added isSwimming check
+-added isDayCountAtOrBeyond check

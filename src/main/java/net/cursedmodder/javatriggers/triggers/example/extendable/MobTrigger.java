@@ -40,7 +40,7 @@ public class MobTrigger extends TriggerBase {
     @Override
     public boolean canPlay() {
         if(Minecraft.getInstance().player == null) return false;
-        List<net.minecraft.world.entity.Mob> mobs = ClientContext.getMobsInArea(radius, height);
+        List<net.minecraft.world.entity.Mob> mobs = ClientContext.getMobsInAreaAroundPlayer(radius, height);
         if(!allowedMobs.isEmpty())  {
             mobs = mobs.stream()
                     .filter(mob -> allowedMobs.contains(GeneralConversionUtil.getEntityStringId(mob)))
