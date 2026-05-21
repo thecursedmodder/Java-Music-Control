@@ -11,6 +11,7 @@ import net.cursedmodder.javatriggers.audio.MinimHelper;
 import net.cursedmodder.javatriggers.audio.PlayerAudioStatus;
 
 import net.cursedmodder.javatriggers.audio.decoder.Glide;
+import net.cursedmodder.javatriggers.triggers.FoundationTriggerHandler;
 import net.cursedmodder.javatriggers.triggers.songs.layer.LayerCondition;
 import net.cursedmodder.javatriggers.triggers.songs.layer.LayeredSong;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,7 +29,9 @@ public class AudioLayer {
     public FilePlayer filePlayer;
     private LayerCondition condition;
     private Gain gain;
+    private Gain masterGain;
     private Glide glide;
+    private Glide masterGlide;
     private Summer summer;
     public LowPassFS lpf;
 
@@ -39,27 +42,39 @@ public class AudioLayer {
         this.minim = new Minim(new MinimHelper(this));
         this.filePlayer = new FilePlayer(minim.loadFileStream(condition.mainSong));
         this.gain = new Gain(-80);
+        this.masterGain = new Gain(-80);
         this.glide = new Glide(gain, 0f, 50);
+        this.masterGlide = new Glide(FoundationTriggerHandler.masterVolume, 50);
         this.summer = player.getAudioMixer();
         this.condition = condition;
         this.lpf = lpf;
         //this.glide.patch(gain.gain);
 
-        glide.patch(gain.gain);
 
+        glide.patch(gain.gain);
+        masterGlide.patch(masterGain.gain);
+
+        // audio chain
         filePlayer.patch(gain);
-        gain.patch(lpf).patch(summer);
+        gain.patch(lpf);
+        lpf.patch(masterGain);
+        masterGain.patch(summer);
 
         this.filePlayer.pause();
     }
-
+    private float lastVolumeChange;
     public void tick() {
         if(player.getSong() != null && player.getSong() instanceof LayeredSong song && !player.isStatus(PlayerAudioStatus.FADING_OUT)) {
             this.condition.tick();
             if(condition.canPlayLayer()) {
-                glide.setValue(condition.fadeIn * 50, condition.maxVolume());
-            } else if(!player.isStatus(PlayerAudioStatus.FADING_OUT)) {
-                glide.setValue(condition.fadeOut * 50, 0F);
+                if(!glide.fadingIn() && glide.getTarget() != condition.maxVolume()) glide.setValue(condition.fadeIn * 50, condition.maxVolume());
+            } else {
+                if(!glide.fadingOut() && glide.getTarget() != 0) glide.setValue(condition.fadeOut * 50, 0F);
+            }
+
+            if(FoundationTriggerHandler.masterVolume != lastVolumeChange && masterGlide != null) {
+                masterGlide.setValue(100, (FoundationTriggerHandler.masterVolume));
+                lastVolumeChange = FoundationTriggerHandler.masterVolume;
             }
         }
     }

@@ -33,8 +33,8 @@ public class JavaTriggers {
         TriggerDebugScreen = true;
     }
 
-    public JavaTriggers() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public JavaTriggers(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
         ModLogger.setupCustomLogger(MODID);
         Config.register();
         //By default, the only trigger that has songs is General as an example;

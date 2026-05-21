@@ -160,7 +160,7 @@ public class AudioPlayer {
                     if(this.glide != null) this.glide.discard();
                     this.gain = queuedFadeGain;
                     this.glide = queuedVolumeGlide;
-                    this.masterGain = new Gain(FoundationTriggerHandler.masterVolume);
+                    this.masterGain = new Gain(-80);
                     this.masterGlider = new Glide(FoundationTriggerHandler.masterVolume, 40);
 
                     glide.patch(gain.gain);
@@ -228,8 +228,8 @@ public class AudioPlayer {
                     if(this.glide != null) this.glide.discard();
                     this.gain = queuedFadeGain;
                     this.glide = queuedVolumeGlide;
-                    this.masterGain = new Gain(FoundationTriggerHandler.masterVolume);
-                    this.masterGlider = new Glide(1F, 40);
+                    this.masterGain = new Gain();
+                    this.masterGlider = new Glide(song.getVolume(), 40);
 
                     glide.patch(gain.gain);
                     masterGlider.patch(masterGain.gain);
@@ -506,18 +506,20 @@ public class AudioPlayer {
             playAt(song.startTime);
         } else playAt(song.readPosition());
         this.setAudioStatus(PlayerAudioStatus.FADING_IN);
-        if(!glide.fading()) {
-            fadeTime = fadeIn;
-            glide.setValue(this.fadeIn * 50, maxVolume);
-        } else {
-            float current = glide.getValue();     // current volume
-            float progress = current / maxVolume;  // 0 → 1
+        if(glide.getValue() != song.getVolume()) {
+            if (!glide.fading()) {
+                fadeTime = fadeIn;
+                glide.setValue(this.fadeIn * 50, song.getVolume());
+            } else {
+                float current = glide.getValue();     // current volume
+                float progress = current / song.getVolume();  // 0 → 1
 
-            int remainingTime = (int) (fadeIn * progress * 50);
+                int remainingTime = (int) (fadeIn * progress * 50);
 
 
-            glide.setValue(remainingTime, maxVolume);
+                glide.setValue(remainingTime, song.getVolume());
 
+            }
         }
     }
 
@@ -534,19 +536,20 @@ public class AudioPlayer {
         this.song.getAttachedTrigger().setTriggerState(TriggerState.FADING_OUT);
 
         AudioLogger.info("Fading out song: " + song.getSongName() + "for trigger " + song.getAttachedTrigger().getName());
+        if(glide.getValue() != 0) {
+            if (!glide.fading()) {
+                this.fadeTime = fadeOut;
+                this.glide.setValue(this.fadeOut * 50, 0F);
+                this.layers.forEach(AudioLayer::fadeOut);
+            } else {
+                float current = glide.getValue();     // current volume
+                float progress = song.getVolume() - (current / song.getVolume());  // 0 → 1
 
-        if(!glide.fading()) {
-            this.fadeTime = fadeOut;
-            this.glide.setValue(this.fadeOut * 50, 0F);
-            this.layers.forEach(AudioLayer::fadeOut);
-        } else {
-            float current = glide.getValue();     // current volume
-            float progress = maxVolume - (current / maxVolume);  // 0 → 1
+                int remainingTime = (int) (fadeIn * progress * 50);
 
-            int remainingTime = (int) (fadeIn * progress * 50);
-
-            glide.setValue(remainingTime, 0);
-            layers.forEach(AudioLayer::fadeOut);
+                glide.setValue(remainingTime, 0);
+                layers.forEach(AudioLayer::fadeOut);
+            }
         }
 
         if(layer) {

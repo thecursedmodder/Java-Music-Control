@@ -7,18 +7,16 @@ import net.cursedmodder.javatriggers.util.debug.AudioLogger;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public final class DebugUI {
+public class DebugUI {
     private static DebugWindow WINDOW;
 
     public static void init() {
         if (GraphicsEnvironment.isHeadless()) {
             AudioLogger.warn("Headless environment detect! Disabling DEBUG_UI");
         } else {
-
+            System.setProperty("java.awt.headless", "false");
+            WINDOW = new DebugWindow();
         }
-
-        System.setProperty("java.awt.headless", "false");
-        WINDOW = new DebugWindow();
     }
 
     public static void addTrigger(TriggerBase triggerBase) {
@@ -27,8 +25,6 @@ public final class DebugUI {
     }
 
     private static void ensureInit() {
-
-        System.setProperty("java.awt.headless", "false");
         if (WINDOW == null) {
             init();
         }

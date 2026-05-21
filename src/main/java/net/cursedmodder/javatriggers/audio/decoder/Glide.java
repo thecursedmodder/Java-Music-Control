@@ -4,6 +4,7 @@ import ddf.minim.AudioPlayer;
 import ddf.minim.UGen;
 import ddf.minim.ugens.Gain;
 import net.cursedmodder.javatriggers.JavaTriggers;
+import net.cursedmodder.javatriggers.triggers.FoundationTriggerHandler;
 import net.cursedmodder.javatriggers.util.debug.AudioLogger;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,8 +30,6 @@ public class Glide extends UGen {
     private boolean gliding;
 
     public Glide(float initialValue, float glideTimeSeconds) {
-        super();
-
         initialValue = clamp(initialValue);
 
         this.currentValue = initialValue;
@@ -46,7 +45,6 @@ public class Glide extends UGen {
     }
 
     public Glide(Gain gain, float initialValue, float glideTimeSeconds) {
-        super();
 
         initialValue = clamp(initialValue);
 
@@ -99,6 +97,7 @@ public class Glide extends UGen {
     public void setValue(float time, float volume) {
         setGlideTime(time / 1000);
         setTarget(volume);
+        AudioLogger.info(time + " time, " + volume + " volume, " + "volume for song " + FoundationTriggerHandler.channel1.audioPlayer.getSong() + " " + volume);
     }
 
     public void discard() {
