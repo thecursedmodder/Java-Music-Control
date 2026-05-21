@@ -58,8 +58,9 @@
 -fixed continue from feature
 
 1.2.0
--Changed out the glide function for buttery smooth glides! (This took far long than I thought it would >:\)
+-Changed out the glide function for buttery smooth glides (Confirmed and Test)! (This took far long than I thought it would >:\) 
 -Dropped back down to 4096 for hardware audio buffer. It seems to stutter more in certain conditions past that.
+-fixed issue with layer's fading in. (Confirmed and Test)
 
 --Trigger Updates--
 Enhanced the extendable mob trigger
@@ -68,5 +69,13 @@ Enhanced the extendable mob trigger
 -Added a Tag Biomes check
 -Added a isMobTypeNearby
 -Added more customizable time check (isBetweenTimeFrame)
+
+This has build has been stable for the 30 minutes of consistent runtime
+
+1.2.2
+-attempt to support 1.20.1 - 1.20.5 (This isn't looking likely)
+-fixed audio layer issue involving masterVolume not effecting it.
+
+1.2.3
 
 
