@@ -16,7 +16,7 @@ public class Config {
         builder.push("General");
         TPS = builder
                 .comment("Tick Delay for trigger switching")
-                .comment("Its probably a good idea to turn this up for more relaxed mod-packs")
+                .comment("Its probably a good idea to turn this up for more relaxed mod-packs, since it will increase performance")
                 .comment("The higher the delay the slower the music will respond to actions")
                 .comment("ticks per second = 20/TPS")
                 .defineInRange("tps", 1, 1, 10);

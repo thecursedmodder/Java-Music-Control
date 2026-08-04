@@ -28,7 +28,7 @@ public class Channel implements Runnable {
     }
 
     public Song getSong() {
-        return this.song;
+        return this.audioPlayer.getSong();
     }
 
     public void tick() {

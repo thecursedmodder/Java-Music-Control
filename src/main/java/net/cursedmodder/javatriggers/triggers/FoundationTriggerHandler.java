@@ -103,7 +103,7 @@ public class FoundationTriggerHandler {
                 }
 
                 //
-                if (currentTrigger.canPlay() && !channel1.audioPlayer.isPaused())
+                if (currentTrigger.canPlay())
                     if (!channel1.audioPlayer.isPlaying()) {
                         setSong(channel1, currentTrigger);
                     }

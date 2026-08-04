@@ -4,7 +4,9 @@ import net.cursedmodder.javatriggers.triggers.songs.Song;
 import net.cursedmodder.javatriggers.triggers.songs.SongList;
 import net.cursedmodder.javatriggers.util.debug.AudioLogger;
 import net.cursedmodder.javatriggers.util.debug.watch.DebugUI;
+import net.minecraft.world.item.enchantment.Enchantments;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +132,7 @@ public abstract class TriggerBase implements Comparable<TriggerBase> {
         return lowPassAmount;
     }
 
+    
     public boolean canPlay() {
         return getSong() != null && getTimeTillCanPlayAgainCounter <= 0;
     }

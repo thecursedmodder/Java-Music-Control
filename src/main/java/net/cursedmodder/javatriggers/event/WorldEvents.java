@@ -24,7 +24,7 @@ public class WorldEvents {
     }
 
     @SubscribeEvent
-    public void cancelSleep(PlayerSleepInBedEvent e) {
+    public void getSpawn(PlayerSleepInBedEvent e) {
         ServerPlayer Player_Entity = (ServerPlayer) e.getEntity();
         BlockPos Pos = e.getPos();
         if(Pos == null) return;

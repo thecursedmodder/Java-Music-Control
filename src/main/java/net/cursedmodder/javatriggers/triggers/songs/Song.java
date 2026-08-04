@@ -19,6 +19,8 @@ public abstract class Song {
     protected float volume = 1;
     protected int fadeIn;
     protected int fadeOut;
+    public int tempFadeIn;
+    public int tempFadeOut;
     protected int forgetLastPositionTime;
     protected boolean mustFinish = false;
     public int weight;
@@ -95,9 +97,17 @@ public abstract class Song {
         }
     }
 
-    public int getFadeIn() { return fadeIn; }
+    public int getFadeIn() {
+        if(tempFadeIn > 0) {
+            return tempFadeIn;
+        } else return fadeIn;
+    }
 
-    public int getFadeOut() { return fadeOut; }
+    public int getFadeOut() {
+        if(tempFadeOut > 0) {
+            return tempFadeOut;
+        } else return fadeOut;
+    }
 
     public boolean isLayeredSong() { return layeredSong; }
 

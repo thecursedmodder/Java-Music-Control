@@ -8,7 +8,6 @@ import ddf.minim.ugens.Gain;
 import ddf.minim.ugens.Summer;
 import net.cursedmodder.javatriggers.JavaTriggers;
 import net.cursedmodder.javatriggers.audio.decoder.Glide;
-import net.cursedmodder.javatriggers.audio.decoder.GlideOutput;
 import net.cursedmodder.javatriggers.audio.manager.AudioLayer;
 import net.cursedmodder.javatriggers.audio.manager.Channel;
 import net.cursedmodder.javatriggers.triggers.FoundationTriggerHandler;
@@ -52,19 +51,16 @@ public class AudioPlayer {
     private Song queuedSong;
 
 
-
     public int fadeIn;
     public int fadeOut;
     private volatile PlayerAudioStatus audioStatus;
     private float lastVolumeChange;
-    public boolean fading;
-    private float maxVolume = 1F;
+
     public Channel channel;
     private boolean paused;
     public AtomicBoolean loading = new AtomicBoolean(false); //HELL YEAH! WE'RE GOING ATOMIC! Increases reliability over volatile boolean.
     private int tickCount;
     public boolean switching;
-    public boolean layer;
 
     public AudioPlayer(int id) {
         minim = new Minim(new MinimHelper(this));
@@ -145,6 +141,8 @@ public class AudioPlayer {
                 if (this.song != null) {
                     this.song.getAttachedTrigger().setTriggerState(TriggerState.IDLE);
                     this.song.hasPlayed = true;
+                    this.song.tempFadeOut = 0;
+                    this.song.tempFadeOut = 0;
                 }
                 if(minim != null && player != null) {
                     player.close();
@@ -297,7 +295,6 @@ public class AudioPlayer {
             song.isPlaying = true;
             fadeIn = song.getFadeIn();
             fadeOut = song.getFadeOut();
-            maxVolume = song.getVolume();
         }
         this.song = song;
     }
@@ -349,6 +346,7 @@ public class AudioPlayer {
     public Song getSong() {
         return song;
     }
+
     public boolean isStatus(PlayerAudioStatus status) {
         if(status == PlayerAudioStatus.PLAYING && this.audioStatus == PlayerAudioStatus.FADING_IN || this.audioStatus == PlayerAudioStatus.FADING_OUT) {
             return true;
@@ -406,10 +404,6 @@ public class AudioPlayer {
             return player.isPlaying();
         }
         return false;
-    }
-
-    public void setVolume(float volume) {
-        masterGlider.setValue(100, volume);
     }
 
     public void setAudioStatus(PlayerAudioStatus status) {
@@ -491,10 +485,6 @@ public class AudioPlayer {
 
     }
 
-    public boolean gainIsActive() {
-        return gain != null;
-    }
-
     public static int generateNewID() {
        // AudioLogger.info("New ID generated");
         return currentID++;
@@ -509,7 +499,7 @@ public class AudioPlayer {
         if(glide.getValue() != song.getVolume()) {
             if (!glide.fading()) {
                 fadeTime = fadeIn;
-                glide.setValue(this.fadeIn * 50, song.getVolume());
+                glide.setValue(this.fadeIn * 50, 1f);
             } else {
                 float current = glide.getValue();     // current volume
                 float progress = current / song.getVolume();  // 0 → 1
@@ -517,7 +507,7 @@ public class AudioPlayer {
                 int remainingTime = (int) (fadeIn * progress * 50);
 
 
-                glide.setValue(remainingTime, song.getVolume());
+                glide.setValue(remainingTime, 1f);
 
             }
         }

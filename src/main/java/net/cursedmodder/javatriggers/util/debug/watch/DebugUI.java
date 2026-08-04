@@ -3,6 +3,7 @@ package net.cursedmodder.javatriggers.util.debug.watch;
 import net.cursedmodder.javatriggers.JavaTriggers;
 import net.cursedmodder.javatriggers.triggers.base.TriggerBase;
 import net.cursedmodder.javatriggers.util.debug.AudioLogger;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.awt.*;
 import java.util.function.Supplier;
@@ -14,6 +15,7 @@ public class DebugUI {
         if (GraphicsEnvironment.isHeadless()) {
             AudioLogger.warn("Headless environment detect! Disabling DEBUG_UI");
         } else {
+            if(FMLLoader.getLaunchHandler().isData()) return;
             System.setProperty("java.awt.headless", "false");
             WINDOW = new DebugWindow();
         }

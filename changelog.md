@@ -77,5 +77,19 @@ This has build has been stable for the 30 minutes of consistent runtime
 -fixed audio layer issue involving masterVolume not effecting it.
 
 1.2.3
+-fixed DataGen crash.
+-fixed volume jump bug with songs above or bellow volume 1.0 (Confirmed and Test)
+-fixed audio looping when screen is paused
+
+-removed example song.
+
+1.2.4
+-updated config description for increased clarity
+-Changed name of a subscribe method for clarity (This won't affect compatibility)
+
+1.3.0
+added a tempFadeIn and tempFadeOut field to the Song class.
+Essentially, you can change these fields to be greater a different value from the base FadeOut/In values.
+After the song is finished or replaced it resets these fields. 
 
 
